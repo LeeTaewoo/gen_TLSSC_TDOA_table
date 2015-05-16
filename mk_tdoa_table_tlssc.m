@@ -7,11 +7,24 @@ function []=mk_tdoa_table_tlssc(tdoa_table_filename,Fs,c)
 % "Fast Sound Source Localization Using Two-Level Search Space Clustering,"
 % IEEE Transactions on Cybernetics, In Press, Feb. 2015.
 %
-% Author: Taewoo Lee (twlee@speech.korea.ac.kr). 2015.4.28.
+
+% Release date: May 2015
+% Author: Taewoo Lee, (twlee@speech.korea.ac.kr)
 %
-% This work is licensed under a Creative Commons Attribution 4.0
-% International License. See: http://creativecommons.org/licenses/by/4.0/.
+% Copyright (C) 2015 Taewoo Lee
 % 
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 threshold= round((1/5) * (55/c) * Fs);
 load(tdoa_table_filename);
