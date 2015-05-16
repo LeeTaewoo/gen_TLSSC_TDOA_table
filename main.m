@@ -2,7 +2,7 @@
 % 2015.4.28. Taewoo Lee, twlee@speech.korea.ac.kr
 %
 % This work is licensed under a Creative Commons Attribution 4.0
-% International License. (See: http://creativecommons.org/licenses/by/4.0/)
+% International License. See: http://creativecommons.org/licenses/by/4.0/.
 % 
 clc; clear all; close all;
 
