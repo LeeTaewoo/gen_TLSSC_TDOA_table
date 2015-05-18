@@ -37,12 +37,12 @@ mic=[0, 122.5, 438; ...		%0
 	-122.5, 0, 200; ...		%14
 	-86.6, 86.6, 200];  	%15
 
-% Search range setting (hemispherical or spherical coordinates)
-search_range.theta_range= 2*pi; % radian
-search_range.n_theta= 360;      % degree (e.g. theta range=0:2*pi/360:2*pi)
-search_range.phi_range= pi;     % radian (pi=hemisphere, 2*pi=sphere)
-search_range.n_phi= 90;         % degree (e.g. phi range=0:pi/360:2*pi)
-search_range.r= 2000;           % milli meter
+% Search range setting
+search_range.theta_range= 2*pi;     % radian
+search_range.n_theta= 360;          % degree (e.g. theta range=0:2*pi/360:2*pi)
+search_range.phi_range= pi/2;       % radian
+search_range.n_phi= 90;             % degree (e.g. phi range=0:pi/2/90:pi/2)
+search_range.r= [2000 2500 3000];   % milli meter
 
 Fs= 16000; % sampling frequency (Hz)
 c= 340000; % speed of sound (mm/s)
