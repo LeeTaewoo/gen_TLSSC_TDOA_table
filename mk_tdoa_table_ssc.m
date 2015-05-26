@@ -1,4 +1,5 @@
-function []=mk_tdoa_table_ssc(tdoa_table_filename)
+function []=mk_tdoa_table_ssc(tdoa_table_filename,cartCoords_filename, ...
+                              mic,Fs,c)
 % In : TDOA_table.mat
 % Out: TDOA_table_SSC.mat
 %
@@ -36,9 +37,7 @@ clusterID= 0;
 nCoord= size(TDOA_table,1);
 CoordClusterTable= zeros(nCoord,1);
 for i=1:nCoord-1
-    if(rem(i,100)==0)
-        fprintf('Processing ... clutser %d/%d\n',i,nCoord);
-    end    
+    fprintf('Processing ... clutser %d/%d\n',i,nCoord);
     if (CoordClusterTable(i,1)~=0)
         continue;
     end
@@ -64,14 +63,39 @@ SSC= cell(nCluster,1);
 for clusterID=1:nCluster
     SSC{clusterID}= find(CoordClusterTable==clusterID);
 end
+save('SSC.mat','SSC');
 
 % Extracting representative coordinates in each cluster. Then, it is saved
 % in TDOA_table_SSC. The representative coordinates is determined as the 
-% first coordinates in the cluster.
+% centroid in the cluster.
+load(cartCoords_filename);
+M= size(mic,1);
+N= M*(M-1)/2;
 nCluster= size(SSC,1);
 TDOA_table_SSC= zeros(nCluster,N);
+SSC_centroids= zeros(nCluster,3);
 for i=1:nCluster
-    clusterIdx= SSC{i}(1);
-    TDOA_table_SSC(i,:)= TDOA_table(clusterIdx,:);
+    centroid= zeros(1,3);
+    nCoord= size(SSC{i,1},1);    
+    for j=1:nCoord
+        coordIdx= SSC{i,1}(j,1);
+        centroid= centroid + cartCoords(coordIdx,:);
+    end
+    centroid= centroid ./ nCoord;
+    SSC_centroids(i,:)= centroid;
+
+    % Re-calculate the TDOA of the centroid -> save to TDOA_table_SSC.mat
+    micPairCnt= 0;
+    for m1=1:M-1
+        for m2=m1+1:M
+            d1= norm(mic(m1,:)-centroid(1,:),2);
+            d2= norm(mic(m2,:)-centroid(1,:),2);
+            dd= d1-d2;
+            sd= round((dd/c)*Fs);
+            micPairCnt= micPairCnt+1;
+            TDOA_table_SSC(i,micPairCnt)= sd;
+        end
+    end
 end
 save ('TDOA_table_SSC.mat','TDOA_table_SSC');
+save ('SSC_centroids.mat','SSC_centroids');
