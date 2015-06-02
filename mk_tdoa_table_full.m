@@ -1,6 +1,6 @@
 function []=mk_tdoa_table_full(mic,mic_array_origin,search_range,Fs,c)
 % In : mic: cartesian coordinates of microphones 
-%      search_range: e.g.) theta=0:2*pi/360:2*pi, phi=0:pi/90:pi, r=2m.
+%      search_range
 %      Fs: sampling frequency (Hz).
 % Out: TDOA_table.mat: Q x N matrix which stores TDOAs of each microphone 
 %                      pair for each coordinates index.
